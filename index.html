@@ -1,271 +1,637 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>TomToms Mathe-Übungsblatt (50 Fragen - Tinto Stil)</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 25px;
-            color: #000;
-            line-height: 1.35;
-            font-size: 13px;
-        }
-        h1 {
-            text-align: center;
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-        .header-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            border-bottom: 2px solid #333;
-            padding-bottom: 8px;
-        }
-        h3 {
-            font-size: 14px;
-            background: #f0f0f0;
-            padding: 4px 8px;
-            border-left: 4px solid #333;
-            margin-top: 15px;
-            margin-bottom: 8px;
-        }
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        li {
-            margin: 8px 0;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        /* Tinto Book Style Visual Cube Grids */
-        .cube-pic-container {
-            display: inline-flex;
-            gap: 15px;
-            align-items: center;
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin: 4px 0;
-        }
-        .cube-grid {
-            display: grid;
-            gap: 2px;
-        }
-        .c-block {
-            width: 18px;
-            height: 18px;
-            background: #38bdf8;
-            border: 1px solid #0369a1;
-            border-radius: 3px;
-        }
-        .c-empty {
-            width: 18px;
-            height: 18px;
-            background: transparent;
-        }
-        @media print {
-            body { margin: 10px; font-size: 11px; }
-            h3 { margin-top: 10px; margin-bottom: 5px; }
-            .cube-pic-container { background: white; border: 1px solid #999; }
-            .c-block { background: #cbd5e1; border: 1px solid #333; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C_ABAPD Mock Exam — 5 Sets</title>
+<style>
+  :root{
+    --sap-blue:#0a6ed1;
+    --sap-dark:#1d2d3e;
+    --sap-bg:#f5f6f7;
+    --sap-green:#107e3e;
+    --sap-amber:#e9730c;
+    --sap-border:#d9d9d9;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"72","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--sap-bg);
+    color:var(--sap-dark);
+    line-height:1.6;
+  }
+  header{
+    background:linear-gradient(135deg,#0a6ed1,#0854a0);
+    color:#fff;
+    padding:48px 24px 40px;
+    text-align:center;
+  }
+  header h1{margin:0 0 8px;font-size:2rem;font-weight:600;}
+  header p{margin:0;opacity:.9;font-size:1rem;}
+  .wrap{max-width:920px;margin:0 auto;padding:24px;}
+  .notice{
+    background:#fff8e1;border-left:4px solid var(--sap-amber);
+    padding:14px 18px;border-radius:var(--radius);
+    margin:24px 0;font-size:.95rem;
+  }
+  .weight-bar{
+    display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 32px;
+  }
+  .weight-bar span{
+    background:#fff;border:1px solid var(--sap-border);
+    padding:6px 12px;border-radius:20px;font-size:.82rem;font-weight:600;
+  }
+  .weight-bar span b{color:var(--sap-blue);}
+  .set{
+    background:#fff;border-radius:var(--radius);
+    box-shadow:0 1px 4px rgba(0,0,0,.08);
+    margin-bottom:36px;overflow:hidden;
+  }
+  .set-header{
+    background:var(--sap-dark);color:#fff;
+    padding:16px 22px;font-size:1.15rem;font-weight:600;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;
+  }
+  .set-header small{font-weight:400;opacity:.75;font-size:.8rem;}
+  .q{
+    padding:22px;border-bottom:1px solid #eee;
+  }
+  .q:last-child{border-bottom:none;}
+  .q-meta{
+    display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;
+    font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  }
+  .tag{background:#e8f1fb;color:var(--sap-blue);padding:3px 9px;border-radius:12px;}
+  .pct{background:#e6f4ea;color:var(--sap-green);padding:3px 9px;border-radius:12px;}
+  .q-text{font-weight:600;margin:0 0 12px;}
+  .q pre{
+    background:#1d2d3e;color:#e6edf3;padding:14px 16px;
+    border-radius:8px;overflow-x:auto;font-size:.85rem;
+    font-family:"Consolas","Monaco",monospace;
+  }
+  details{
+    border:1px solid var(--sap-border);border-radius:8px;
+    background:#fafbfc;padding:0;margin-top:6px;
+  }
+  details[open]{background:#f0f7ff;border-color:#b3d4f5;}
+  summary{
+    cursor:pointer;padding:11px 16px;font-weight:600;
+    color:var(--sap-blue);list-style:none;user-select:none;
+    display:flex;align-items:center;gap:8px;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary::before{
+    content:"▶";font-size:.7rem;transition:transform .2s;
+  }
+  details[open] summary::before{transform:rotate(90deg);}
+  .answer{padding:4px 18px 18px;font-size:.92rem;}
+  .answer pre{
+    background:#1d2d3e;color:#e6edf3;padding:14px 16px;
+    border-radius:8px;overflow-x:auto;font-size:.82rem;
+    font-family:"Consolas","Monaco",monospace;
+  }
+  .answer code{
+    background:#eef2f6;padding:2px 6px;border-radius:4px;
+    font-size:.85rem;font-family:"Consolas","Monaco",monospace;
+  }
+  .key-point{
+    border-left:3px solid var(--sap-green);
+    padding-left:12px;margin:12px 0;color:#333;
+  }
+  .footer{
+    text-align:center;padding:40px 24px;color:#6a7a8a;font-size:.85rem;
+  }
+</style>
 </head>
 <body>
 
-    <h1>📝 Mathe-Testvorbereitung (Klasse 1 - Tinto Stil)</h1>
-    <div class="header-info">
-        <span>Name: ___________________________</span>
-        <span>Datum: _______________</span>
+<header>
+  <h1>C_ABAPD Mock Exam</h1>
+  <p>SAP Certified Associate — Back-End Developer — ABAP Cloud · 5 Practice Sets</p>
+</header>
+
+<div class="wrap">
+
+  <div class="notice">
+    <strong>Format note:</strong> The live C_ABAPD exam is a <b>system-based practical assessment</b>
+    (approx. 3 hours, 67% cut score, valid 12 months). You write real code in an SAP system.
+    These sets are <b>free-response / scenario-based</b> — no multiple choice — so you practice
+    the actual skill: writing and reasoning about code. Expand each answer only after you've attempted it.
+  </div>
+
+  <div class="weight-bar">
+    <span>Core ABAP <b>31–40%</b></span>
+    <span>CDS &amp; Data Modeling <b>21–30%</b></span>
+    <span>RAP <b>11–20%</b></span>
+    <span>Clean Core / ABAP Cloud <b>11–20%</b></span>
+    <span>ABAP SQL &amp; Pushdown <b>≤10%</b></span>
+    <span>OO Design <b>≤10%</b></span>
+  </div>
+
+  <!-- ================= SET 1 ================= -->
+  <div class="set">
+    <div class="set-header">Set 1 — Core ABAP Programming <small>~35% of exam weight</small></div>
+
+    <div class="q">
+      <div class="q-meta"><span class="tag">Core ABAP</span><span class="pct">~8%</span></div>
+      <p class="q-text">Q1. Rewrite this classic loop using modern ABAP constructor expressions and a single statement. Return only rows where <code>amount &gt; 100</code>, sorted descending by amount.</p>
+      <pre>DATA: lt_in  TYPE STANDARD TABLE OF ty_item,
+      lt_out TYPE STANDARD TABLE OF ty_item.
+
+LOOP AT lt_in INTO DATA(ls).
+  IF ls-amount > 100.
+    APPEND ls TO lt_out.
+  ENDIF.
+ENDLOOP.
+SORT lt_out BY amount DESCENDING.</pre>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+<pre>DATA(lt_out) =
+  VALUE ty_items(
+    FOR ls IN lt_in
+      WHERE ( amount > 100 )
+      ( ls ) ).
+
+SORT lt_out BY amount DESCENDING.</pre>
+          <div class="key-point">
+            <b>Examiner's view:</b> <code>FOR ... WHERE</code> inside <code>VALUE</code> is the
+            expected answer. Sorting still needs a separate <code>SORT</code> (or use
+            <code>REDUCE</code> + <code>INSERT ... INDEX 1</code> if you want it truly single-statement,
+            but that hurts readability). Naming: <code>ty_items</code> must be a table type of <code>ty_item</code>.
+          </div>
+        </div>
+      </details>
     </div>
 
-    <h3>Teil 1: Rechnen bis 20</h3>
-    <div class="grid-2">
-        <ul>
-            <li>1) 7 + 5 = &nbsp; ______</li>
-            <li>2) 14 - 6 = &nbsp; ______</li>
-            <li>3) 9 + 8 = &nbsp; ______</li>
-            <li>4) 19 - 5 = &nbsp; ______</li>
-            <li>5) 6 + 7 = &nbsp; ______</li>
-        </ul>
-        <ul>
-            <li>6) 11 + 4 = &nbsp; ______</li>
-            <li>7) 18 - 7 = &nbsp; ______</li>
-            <li>8) 8 + 8 = &nbsp; ______</li>
-            <li>9) 15 - 9 = &nbsp; ______</li>
-            <li>10) 10 + 6 = &nbsp; ______</li>
-        </ul>
+    <div class="q">
+      <div class="q-meta"><span class="tag">Core ABAP</span><span class="pct">~8%</span></div>
+      <p class="q-text">Q2. You need the total and average <code>amount</code> from an internal table in one pass, plus a count. Write the modern ABAP expression. Name the structure fields explicitly.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+<pre>TYPES: BEGIN OF ty_stat,
+         count   TYPE i,
+         total   TYPE p LENGTH 15 DECIMALS 2,
+         average TYPE p LENGTH 15 DECIMALS 2,
+       END OF ty_stat.
+
+DATA(ls_stat) =
+  REDUCE ty_stat(
+    INIT sum TYPE p LENGTH 15 DECIMALS 2
+         cnt TYPE i
+    FOR ls IN lt_items
+    NEXT sum = sum + ls-amount
+         cnt = cnt + 1 ).
+
+ls_stat-count   = cnt.
+ls_stat-total   = sum.
+ls_stat-average = COND #( WHEN cnt > 0 THEN sum / cnt ELSE 0 ).</pre>
+          <div class="key-point">
+            <b>Examiner's view:</b> A common trap is trying to compute <code>average</code> inside
+            <code>REDUCE NEXT</code> — you can't divide by a counter that's still accumulating.
+            Compute it after the reduction. Also note <code>COND</code> guards against division by zero.
+          </div>
+        </div>
+      </details>
     </div>
 
-    <h3>Teil 2: Zahlen vergleichen (&gt;, &lt;, =)</h3>
-    <div class="grid-2">
-        <ul>
-            <li>1) 12 &nbsp; _____ &nbsp; 15</li>
-            <li>2) 18 &nbsp; _____ &nbsp; 18</li>
-            <li>3) 20 &nbsp; _____ &nbsp; 14</li>
-            <li>4) 11 &nbsp; _____ &nbsp; 16</li>
-            <li>5) 17 &nbsp; _____ &nbsp; 9</li>
-        </ul>
-        <ul>
-            <li>6) 13 &nbsp; _____ &nbsp; 19</li>
-            <li>7) 16 &nbsp; _____ &nbsp; 16</li>
-            <li>8) 8 &nbsp; _____ &nbsp; 12</li>
-            <li>9) 19 &nbsp; _____ &nbsp; 10</li>
-            <li>10) 14 &nbsp; _____ &nbsp; 15</li>
-        </ul>
+    <div class="q">
+      <div class="q-meta"><span class="tag">Core ABAP</span><span class="pct">~8%</span></div>
+      <p class="q-text">Q3. Convert a string <code>'2026-09-26'</code> to a proper <code>dats</code> date and back to ISO format. Show both directions using modern syntax.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+<pre>DATA(lv_str)  = '2026-09-26'.
+DATA(lv_date) = CONV dats( lv_str ).   " implicit, no separators -> '20260926'
+
+" Safer explicit conversion when separators exist:
+DATA(lv_date2) = CONV dats( replace( val  = lv_str
+                                     sub  = '-'
+                                     with = '' ) ).
+
+" Back to ISO:
+DATA(lv_iso) = |{ lv_date2 DATE = ISO }|.   " -> '2026-09-26'</pre>
+          <div class="key-point">
+            <b>Examiner's view:</b> The string template option <code>{ ... DATE = ISO }</code> is the
+            expected modern approach. Watch out: <code>CONV dats( '2026-09-26' )</code> actually fails at
+            runtime because of the hyphens — that's the trap in this question.
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ================= SET 2 ================= -->
+  <div class="set">
+    <div class="set-header">Set 2 — CDS Views &amp; Data Modeling <small>~25% of exam weight</small></div>
+
+    <div class="q">
+      <div class="q-meta"><span class="tag">CDS</span><span class="pct">~7%</span></div>
+      <p class="q-text">Q4. Write a CDS view entity that returns <code>SalesOrder</code>, <code>SalesOrderItem</code>, <code>Product</code>, <code>OrderQuantity</code>, and <code>NetAmount</code> from the standard sales item table, filtered to items with quantity &gt; 0, exposed for OData.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+<pre>@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Sales Order Items'
+@ObjectModel.supportedCapabilities: [ #SQL_BASED_VIEW ]
+define view entity ZI_SalesOrderItem
+  as select from I_SalesOrderItem
+{
+  key SalesOrder,
+  key SalesOrderItem,
+      Product,
+      OrderQuantity,
+      NetAmount,
+      @Semantics.currencyCode: true
+      TransactionCurrency
+}
+where OrderQuantity > 0</pre>
+          <div class="key-point">
+            <b>Examiner's view:</b> Use <code>define view entity</code> (not the deprecated
+            <code>define view</code>). Both key fields must be marked <code>key</code>. If you expose
+            amounts, you must also expose the currency code with
+            <code>@Semantics.currencyCode: true</code> — forgetting this is a classic deduction.
+          </div>
+        </div>
+      </details>
     </div>
 
-    <h3>Teil 3: Tabellen, Aufgabenfamilien & Rechenmauern</h3>
-    <div class="grid-2">
-        <ul>
-            <li>1) <strong>Tabelle (+3):</strong> 4 &rarr; 7 &rarr; ______</li>
-            <li>2) <strong>Tabelle (+2):</strong> 6 &rarr; 8 &rarr; ______</li>
-            <li>3) <strong>Aufgabenrolle:</strong> 5 &rarr; +4 &rarr; 9 &rarr; -2 &rarr; ______</li>
-            <li>4) <strong>Aufgabenrolle:</strong> 12 &rarr; -3 &rarr; 9 &rarr; +5 &rarr; ______</li>
-            <li>5) <strong>Tauschaufgabe:</strong> 7 + 4 = 11 &rarr; ___ + ___ = 11</li>
-        </ul>
-        <ul>
-            <li>6) <strong>Tauschaufgabe:</strong> 3 + 9 = 12 &rarr; ___ + ___ = 12</li>
-            <li>7) <strong>Rechenmauer:</strong> Unten [4], [3] &rarr; Oben [ ______ ]</li>
-            <li>8) <strong>Rechenmauer:</strong> Unten [5], [6] &rarr; Oben [ ______ ]</li>
-            <li>9) <strong>Rechenmauer:</strong> Oben [12], Links [5] &rarr; Rechts [ ______ ]</li>
-            <li>10) <strong>Rechenmauer:</strong> Oben [15], Rechts [7] &rarr; Links [ ______ ]</li>
-        </ul>
+    <div class="q">
+      <div class="q-meta"><span class="tag">CDS</span><span class="pct">~7%</span></div>
+      <p class="q-text">Q5. You need a view that joins a header and an item table. Explain when you would use an <b>association</b> instead of a <code>JOIN</code>, and give the syntax skeleton.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+<pre>define view entity ZI_OrderWithItems
+  as select from ZI_OrderHeader as h
+    association [1..*] to ZI_OrderItem as _Items
+      on h.OrderId = _Items.OrderId
+{
+  key h.OrderId,
+      h.Customer,
+      h.Currency,
+      _Items
+}</pre>
+          <div class="key-point">
+            <b>Examiner's view — when to use which:</b>
+            <ul>
+              <li><b>Association</b>: lazy evaluation (only fetched if the consumer requests it), reusable across views, needed for RAP, supports path expressions, keeps cardinality explicit.</li>
+              <li><b>JOIN</b>: eager, flattened result at DB level, good for pure reporting with no reuse and no composition semantics.</li>
+              <li>For RAP business objects, associations are <b>mandatory</b> — joins won't give you the composition tree.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
     </div>
 
-    <h3>Teil 4: Würfelbauten (Mit Tinto-Bildern)</h3>
-    <div class="grid-2">
-        <ul>
-            <li>
-                <strong>1) Dreier-Turm:</strong><br>
-                <div class="cube-pic-container">
-                    <div class="cube-grid" style="grid-template-columns: 18px;">
-                        <div class="c-block"></div><div class="c-block"></div><div class="c-block"></div>
-                    </div>
-                    <span>&rarr; Gesamtzahl: ______ Würfel</span>
-                </div>
-            </li>
-            <li>
-                <strong>2) Grundriss 2x2:</strong><br>
-                <div class="cube-pic-container">
-                    <div class="cube-grid" style="grid-template-columns: repeat(2, 18px);">
-                        <div class="c-block"></div><div class="c-block"></div>
-                        <div class="c-block"></div><div class="c-block"></div>
-                    </div>
-                    <span>&rarr; Gesamtzahl: ______ Würfel</span>
-                </div>
-            </li>
-            <li>
-                <strong>3) Turm mit Anbau:</strong><br>
-                <div class="cube-pic-container">
-                    <div class="cube-grid" style="grid-template-columns: repeat(2, 18px);">
-                        <div class="c-empty"></div><div class="c-block"></div>
-                        <div class="c-block"></div><div class="c-block"></div>
-                        <div class="c-empty"></div><div class="c-block"></div>
-                    </div>
-                    <span>&rarr; Gesamtzahl: ______ Würfel</span>
-                </div>
-            </li>
-            <li>
-                <strong>4) Kleine Treppe:</strong><br>
-                <div class="cube-pic-container">
-                    <div class="cube-grid" style="grid-template-columns: repeat(3, 18px);">
-                        <div class="c-empty"></div><div class="c-empty"></div><div class="c-block"></div>
-                        <div class="c-empty"></div><div class="c-block"></div><div class="c-block"></div>
-                        <div class="c-block"></div><div class="c-block"></div><div class="c-block"></div>
-                    </div>
-                    <span>&rarr; Gesamtzahl: ______ Würfel</span>
-                </div>
-            </li>
-            <li>
-                <strong>5) Raster 3x3:</strong><br>
-                <div class="cube-pic-container">
-                    <div class="cube-grid" style="grid-template-columns: repeat(3, 18px);">
-                        <div class="c-block"></div><div class="c-block"></div><div class="c-block"></div>
-                        <div class="c-block"></div><div class="c-block"></div><div class="c-block"></div>
-                        <div class="c-block"></div><div class="c-block"></div><div class="c-block"></div>
-                    </div>
-                    <span>&rarr; Gesamtzahl: ______ Würfel</span>
-                </div>
-            </li>
-        </ul>
-        <ul>
-            <li>
-                <strong>6) Einzelner Würfel:</strong><br>
-                <div class="cube-pic-container">
-                    <div class="cube-grid" style="grid-template-columns: 18px;">
-                        <div class="c-block"></div>
-                    </div>
-                    <span>&rarr; Gesamtzahl: ______ Würfel</span>
-                </div>
-            </li>
-            <li>
-                <strong>7) Vierer-Reihe:</strong><br>
-                <div class="cube-pic-container">
-                    <div class="cube-grid" style="grid-template-columns: repeat(4, 18px);">
-                        <div class="c-block"></div><div class="c-block"></div><div class="c-block"></div><div class="c-block"></div>
-                    </div>
-                    <span>&rarr; Gesamtzahl: ______ Würfel</span>
-                </div>
-            </li>
-            <li>
-                <strong>8) Doppelter Turm (2x2):</strong><br>
-                <div class="cube-pic-container">
-                    <div class="cube-grid" style="grid-template-columns: repeat(2, 18px);">
-                        <div class="c-block"></div><div class="c-block"></div>
-                        <div class="c-block"></div><div class="c-block"></div>
-                    </div>
-                    <span>&rarr; Gesamtzahl: ______ Würfel</span>
-                </div>
-            </li>
-            <li>
-                <strong>9) Stepp-Treppe (4 Stufen):</strong><br>
-                <div class="cube-pic-container">
-                    <div class="cube-grid" style="grid-template-columns: repeat(4, 18px);">
-                        <div class="c-empty"></div><div class="c-empty"></div><div class="c-empty"></div><div class="c-block"></div>
-                        <div class="c-empty"></div><div class="c-empty"></div><div class="c-block"></div><div class="c-block"></div>
-                        <div class="c-empty"></div><div class="c-block"></div><div class="c-block"></div><div class="c-block"></div>
-                        <div class="c-block"></div><div class="c-block"></div><div class="c-block"></div><div class="c-block"></div>
-                    </div>
-                    <span>&rarr; Gesamtzahl: ______ Würfel</span>
-                </div>
-            </li>
-            <li>
-                <strong>10) Hausform:</strong><br>
-                <div class="cube-pic-container">
-                    <div class="cube-grid" style="grid-template-columns: repeat(2, 18px);">
-                        <div class="c-empty"></div><div class="c-block"></div>
-                        <div class="c-block"></div><div class="c-block"></div>
-                        <div class="c-block"></div><div class="c-block"></div>
-                    </div>
-                    <span>&rarr; Gesamtzahl: ______ Würfel</span>
-                </div>
-            </li>
-        </ul>
+    <div class="q">
+      <div class="q-meta"><span class="tag">CDS / DCL</span><span class="pct">~7%</span></div>
+      <p class="q-text">Q6. Write a DCL (access control) that restricts the view from Q4 so users only see data for their company code, using a standard authorization field.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+<pre>@MappingRole: true
+define role ZI_SalesOrderItem {
+  grant select on ZI_SalesOrderItem
+    where ( CompanyCode ) =
+          aspect pfcg_auth( F_BKPF_BUK,
+                            BUKRS,
+                            ACTVT = '03' );
+}</pre>
+          <div class="key-point">
+            <b>Examiner's view:</b> The key pattern is <code>aspect pfcg_auth( ... )</code> mapping a
+            CDS field to a PFCG authorization object. <code>@MappingRole: true</code> is required for
+            role-based mapping. The <code>ACTVT</code> value must match the activity (03 = display).
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ================= SET 3 ================= -->
+  <div class="set">
+    <div class="set-header">Set 3 — RAP (RESTful Application Programming Model) <small>~15% of exam weight</small></div>
+
+    <div class="q">
+      <div class="q-meta"><span class="tag">RAP</span><span class="pct">~5%</span></div>
+      <p class="q-text">Q7. You are defining a managed RAP business object. Write the behavior definition for an entity with create, update, delete, and a validation that <code>OrderQuantity &gt; 0</code>. Include draft handling.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+<pre>managed implementation in class zbp_i_orderitem unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZI_OrderItem alias OrderItem
+  persistent table zorderitem
+  draft table zorderitem_d
+  etag master LastChangedAt
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly ) OrderId, OrderItem;
+
+  validation validateQuantity on save { field OrderQuantity; }
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+}</pre>
+          <div class="key-point">
+            <b>Examiner's view:</b> For a managed BO you need: <code>managed</code>, <code>strict ( 2 )</code>,
+            <code>with draft</code>, <code>persistent table</code>, <code>draft table</code>, and the four
+            standard draft actions. The validation references <code>on save</code> here — for
+            field-level checks <code>on save</code> vs <code>on modify</code> matters.
+          </div>
+        </div>
+      </details>
     </div>
 
-    <h3>Teil 5: Sachaufgaben</h3>
-    <ul>
-        <li>1) Anna hat 8 Sticker und bekommt 5 dazu. Wie viele Sticker hat sie?<br><strong>Rechnung:</strong> ________________________ = ______ Sticker</li>
-        <li>2) Tom hatte 14 Murmeln und verliert 4. Wie viele hat er noch?<br><strong>Rechnung:</strong> ________________________ = ______ Murmeln</li>
-        <li>3) Lisa backt 7 Muffins am Samstag und 6 am Sonntag. Wie viele insgesamt?<br><strong>Rechnung:</strong> ________________________ = ______ Muffins</li>
-        <li>4) 17 Kinder sind auf dem Spielplatz, 5 gehen hinein. Wie viele sind draußen?<br><strong>Rechnung:</strong> ________________________ = ______ Kinder</li>
-        <li>5) Max hat 9 rote und 8 blaue Autos. Wie viele Autos hat er insgesamt?<br><strong>Rechnung:</strong> ________________________ = ______ Autos</li>
-        <li>6) In einer Schachtel liegen 12 Buntstifte. 3 brechen ab. Wie viele ganze Stifte bleiben?<br><strong>Rechnung:</strong> ________________________ = ______ Stifte</li>
-        <li>7) Sarah liest am Montag 6 Seiten und am Dienstag 7 Seiten. Wie viele Seiten hat sie gelesen?<br><strong>Rechnung:</strong> ________________________ = ______ Seiten</li>
-        <li>8) Tim hat 16 Äpfel im Korb und isst 4 davon auf. Wie viele Äpfel sind übrig?<br><strong>Rechnung:</strong> ________________________ = ______ Äpfel</li>
-        <li>9) Auf einem Ast sitzen 5 Vögel. Es fliegen noch 7 Vögel dazu. Wie viele Vögel sitzen jetzt dort?<br><strong>Rechnung:</strong> ________________________ = ______ Vögel</li>
-        <li>10) Emma hat 20 Euro Taschengeld und kauft ein Heft für 8 Euro. Wie viel Geld hat sie noch?<br><strong>Rechnung:</strong> ________________________ = ______ Euro</li>
-    </ul>
+    <div class="q">
+      <div class="q-meta"><span class="tag">RAP</span><span class="pct">~5%</span></div>
+      <p class="q-text">Q8. Write the ABAP class implementation for the validation from Q7. Include the message definition.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+<pre>" Message class Z_ORDER_MSG, message 001: 'Quantity must be greater than zero'
 
+CLASS zbp_i_orderitem DEFINITION PUBLIC ABSTRACT FINAL
+  FOR BEHAVIOR OF zi_orderitem.
+ENDCLASS.
+
+CLASS zbp_i_orderitem IMPLEMENTATION.
+  METHOD validateQuantity.
+    READ ENTITIES OF zi_orderitem IN LOCAL MODE
+      ENTITY OrderItem
+        FIELDS ( OrderQuantity )
+        WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_items).
+
+    LOOP AT lt_items INTO DATA(ls_item).
+      IF ls_item-OrderQuantity <= 0.
+        APPEND VALUE #( %tky = ls_item-%tky ) TO failed-orderitem.
+        APPEND VALUE #(
+          %tky        = ls_item-%tky
+          %msg        = new_message(
+                          id       = 'Z_ORDER_MSG'
+                          number   = '001'
+                          severity = if_abap_behv_message=>severity-error )
+          %element-OrderQuantity = if_abap_behv=>mk-on
+        ) TO reported-orderitem.
+      ENDIF.
+    ENDLOOP.
+  ENDMETHOD.
+ENDCLASS.</pre>
+          <div class="key-point">
+            <b>Examiner's view:</b> The three things examiners look for: (1) <code>IN LOCAL MODE</code> read,
+            (2) appending to both <code>failed-</code> and <code>reported-</code> tables, (3) using
+            <code>new_message( )</code> with proper severity. Forgetting <code>%element-</code> means the
+            message won't attach to the field in the UI.
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="q">
+      <div class="q-meta"><span class="tag">RAP</span><span class="pct">~5%</span></div>
+      <p class="q-text">Q9. Explain the difference between a <b>determination</b> and a <b>validation</b> in RAP, and when each runs. Give one use case for each.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+          <div class="key-point">
+            <b>Determination</b>
+            <ul>
+              <li>Computes or fills data automatically. Runs on <code>on save</code>, <code>on modify</code>, or <code>on prepare</code>.</li>
+              <li>Use case: auto-fill <code>CreatedBy</code>, <code>CreatedAt</code>, or calculate <code>NetAmount = Quantity × Price</code>.</li>
+              <li>Never fails — it only sets values.</li>
+            </ul>
+            <b>Validation</b>
+            <ul>
+              <li>Checks data against business rules. Runs <code>on save</code> or <code>on modify</code>.</li>
+              <li>Use case: reject quantity &lt;= 0, or reject a delivery date in the past.</li>
+              <li>Produces messages and can block the save (severity-error).</li>
+            </ul>
+            <b>Memory hook:</b> Determination <i>writes</i>, Validation <i>guards</i>.
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ================= SET 4 ================= -->
+  <div class="set">
+    <div class="set-header">Set 4 — SAP Clean Core &amp; ABAP Cloud <small>~15% of exam weight</small></div>
+
+    <div class="q">
+      <div class="q-meta"><span class="tag">Clean Core</span><span class="pct">~5%</span></div>
+      <p class="q-text">Q10. A customer wants to add a custom field to the standard sales order UI without modifying SAP code. Name the correct extensibility approach and outline the steps.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+          <div class="key-point">
+            <b>Approach: In-app extensibility (key-user extensibility) + developer extensibility.</b>
+            <ol>
+              <li><b>Custom field</b>: create via <i>Custom Fields and Logic</i> app (in-app) or ABAP Development Tools with a custom CDS view extension.</li>
+              <li><b>Extend the CDS view</b>: use <code>extend view entity</code> with an <code>association</code> to your custom table, rather than copying the SAP view.</li>
+              <li><b>Extend the RAP BO</b>: use <code>extend behavior</code> to add validations/determinations on the standard BO.</li>
+              <li><b>UI</b>: add the field via the <i>Adapt UI</i> capability, no code change to SAP screens.</li>
+            </ol>
+            <b>Why not a modification?</b> Modifications break the clean core, block upgrades,
+            and aren't allowed in ABAP Cloud (language version ABAP for Cloud Development).
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="q">
+      <div class="q-meta"><span class="tag">ABAP Cloud</span><span class="pct">~5%</span></div>
+      <p class="q-text">Q11. Which of these statements about ABAP for Cloud Development is true, and why? Explain each. (a) You can use any function module. (b) You can use <code>CALL FUNCTION</code> to a released API. (c) You can use <code>SELECT</code> on any table. (d) You can use <code>WRITE</code> statements.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+          <div class="key-point">
+            <b>Only (b) is correct — with a caveat.</b>
+            <ul>
+              <li><b>(a) False.</b> Only <i>released</i> APIs (C1 contract) are allowed. Unreleased FMs are blocked by the syntax check.</li>
+              <li><b>(b) True.</b> You may call released function modules, but the modern preference is to call released <i>classes</i> / CDS-based APIs. Many classic FMs are not released.</li>
+              <li><b>(c) False.</b> Only tables/views released for cloud development (C1) are accessible. Direct access to many standard tables is blocked — use released CDS views instead.</li>
+              <li><b>(d) False.</b> <code>WRITE</code> and classic lists are not allowed in ABAP Cloud. Use RAP + OData + Fiori instead.</li>
+            </ul>
+            <b>Core principle:</b> In ABAP Cloud, everything must go through <b>released APIs</b> —
+            this is what keeps the core clean and upgrade-stable.
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="q">
+      <div class="q-meta"><span class="tag">Clean Core</span><span class="pct">~5%</span></div>
+      <p class="q-text">Q12. Distinguish <b>in-app extensibility</b> from <b>side-by-side extensibility</b>. Give a decision criterion.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+          <div class="key-point">
+            <b>In-app extensibility</b>
+            <ul>
+              <li>Runs <i>inside</i> the SAP S/4HANA system (same stack).</li>
+              <li>Tools: Custom Fields and Logic, ABAP Development Tools, RAP extensions.</li>
+              <li>Best for: tight integration with standard objects, transactional logic, field extensions on standard BOs.</li>
+            </ul>
+            <b>Side-by-side extensibility</b>
+            <ul>
+              <li>Runs on <b>SAP BTP</b> (separate stack), integrates via APIs/events.</li>
+              <li>Tools: CAP, Kyma, Integration Suite, Event Mesh.</li>
+              <li>Best for: cross-system processes, heavy compute, non-SAP integration, independent lifecycle.</li>
+            </ul>
+            <b>Decision criterion:</b> If the extension must participate in the same transaction
+            and reuse standard BO logic → in-app. If it's decoupled, cross-system, or needs a
+            different runtime → side-by-side.
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ================= SET 5 ================= -->
+  <div class="set">
+    <div class="set-header">Set 5 — ABAP SQL, Pushdown &amp; OO Design <small>~20% of exam weight</small></div>
+
+    <div class="q">
+      <div class="q-meta"><span class="tag">ABAP SQL</span><span class="pct">~4%</span></div>
+      <p class="q-text">Q13. Rewrite this to use code pushdown — do the aggregation on the database, not in ABAP.</p>
+      <pre>SELECT * FROM zorder INTO TABLE @DATA(lt_all).
+DATA lv_total TYPE p DECIMALS 2.
+LOOP AT lt_all INTO DATA(ls).
+  IF ls-status = 'C'.
+    lv_total = lv_total + ls-amount.
+  ENDIF.
+ENDLOOP.</pre>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+<pre>SELECT SINGLE SUM( amount ) AS total
+  FROM zorder
+  INTO @DATA(lv_total)
+  WHERE status = 'C'.</pre>
+          <div class="key-point">
+            <b>Examiner's view:</b> The whole point of pushdown is to send the work to HANA.
+            Using <code>SELECT *</code> then looping is the anti-pattern. Also note:
+            <code>SUM( )</code> returns <code>NULL</code> if no rows match — wrap with
+            <code>COALESCE( SUM( amount ), 0 )</code> if you need a guaranteed 0.
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="q">
+      <div class="q-meta"><span class="tag">ABAP SQL</span><span class="pct">~3%</span></div>
+      <p class="q-text">Q14. What is wrong with this statement, and how do you fix it?</p>
+      <pre>SELECT order_id, customer, amount
+  FROM zorder
+  INTO TABLE @DATA(lt)
+  WHERE amount > 100
+  ORDER BY customer.</pre>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+          <div class="key-point">
+            <b>Issue:</b> This is actually valid in modern ABAP SQL (7.40+), <b>but</b> the classic
+            rule was that <code>ORDER BY</code> requires all non-aggregate fields in the select list
+            to be either in the ORDER BY or aggregated. The real trap here is different:
+            <ul>
+              <li>If <code>zorder</code> is a client-dependent table, <code>CLIENT SPECIFIED</code>
+                  is missing and the client field is auto-added — usually fine, but for cross-client
+                  reads you need <code>CLIENT SPECIFIED</code>.</li>
+              <li><b>Performance:</b> sorting on the DB is good (pushdown), but ensure
+                  <code>customer</code> is indexed or the sort happens in HANA anyway.</li>
+              <li><b>Correct modern form:</b> use a comma-separated field list and
+                  <code>INTO TABLE @DATA(lt)</code> — which is what's written. So the statement is
+                  <i>syntactically valid</i>.</li>
+            </ul>
+            <b>Better answer:</b> The statement is fine as-is. The examiner is testing whether you
+            know <code>ORDER BY</code> on the DB is preferred over <code>SORT</code> in ABAP, and that
+            <code>@DATA</code> inline declaration is the modern style.
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="q">
+      <div class="q-meta"><span class="tag">OO Design</span><span class="pct">~5%</span></div>
+      <p class="q-text">Q15. Design a class hierarchy for a payment processor supporting CreditCard, PayPal, and BankTransfer. Show the interface, abstract class, and factory method. Explain why you'd use a factory.</p>
+      <details>
+        <summary>Show answer</summary>
+        <div class="answer">
+<pre>INTERFACE zif_payment.
+  METHODS pay IMPORTING iv_amount TYPE p
+              RETURNING VALUE(rv_ok) TYPE abap_bool.
+ENDINTERFACE.
+
+CLASS zcl_payment_base DEFINITION ABSTRACT.
+  PUBLIC SECTION.
+    INTERFACES zif_payment.
+    METHODS constructor IMPORTING iv_currency TYPE waers.
+  PROTECTED SECTION.
+    DATA mv_currency TYPE waers.
+ENDCLASS.
+
+CLASS zcl_credit_card DEFINITION INHERITING FROM zcl_payment_base.
+  PUBLIC SECTION.
+    METHODS zif_payment~pay REDEFINITION.
+ENDCLASS.
+
+CLASS zcl_paypal DEFINITION INHERITING FROM zcl_payment_base.
+  PUBLIC SECTION.
+    METHODS zif_payment~pay REDEFINITION.
+ENDCLASS.
+
+CLASS zcl_payment_factory DEFINITION.
+  PUBLIC SECTION.
+    CLASS-METHODS create
+      IMPORTING iv_type     TYPE string
+                iv_currency TYPE waers
+      RETURNING VALUE(ro)   TYPE REF TO zif_payment
+      RAISING   zcx_payment_error.
+ENDCLASS.
+
+CLASS zcl_payment_factory IMPLEMENTATION.
+  METHOD create.
+    CASE iv_type.
+      WHEN 'CC'.     CREATE OBJECT ro TYPE zcl_credit_card
+                       EXPORTING iv_currency = iv_currency.
+      WHEN 'PP'.     CREATE OBJECT ro TYPE zcl_paypal
+                       EXPORTING iv_currency = iv_currency.
+      WHEN OTHERS.   RAISE EXCEPTION TYPE zcx_payment_error.
+    ENDCASE.
+  ENDMETHOD.
+ENDCLASS.</pre>
+          <div class="key-point">
+            <b>Examiner's view — why a factory?</b>
+            <ul>
+              <li><b>Decoupling</b>: caller depends only on <code>zif_payment</code>, not concrete classes.</li>
+              <li><b>Single point of change</b>: adding a new payment type touches only the factory.</li>
+              <li><b>Testability</b>: easy to inject a mock implementation.</li>
+              <li><b>Encapsulation</b>: construction logic (currency, config) stays out of business logic.</li>
+            </ul>
+            <b>Design notes:</b> Interface is the contract; abstract class holds shared state
+            (currency). This is the classic <i>Template Method + Factory</i> combination.
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="footer">
+    Mock exam content is for study purposes only. Not affiliated with or endorsed by SAP SE.<br>
+    C_ABAPD is a trademark of SAP SE. Always verify the current exam guide on SAP Learning.
+  </div>
+
+</div>
 </body>
 </html>
